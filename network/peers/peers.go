@@ -14,8 +14,8 @@ type PeerUpdate struct {
 	Lost  []string
 }
 
-const interval = 15 * time.Millisecond
-const timeout = 500 * time.Millisecond
+const interval = 5 * time.Millisecond
+const timeout = 2000 * time.Millisecond
 
 func Transmitter(port int, id string, transmitEnable <-chan bool) {
 
@@ -86,7 +86,7 @@ func Receiver(port int, peerUpdateCh chan<- PeerUpdate) {
 	}
 }
 
-func PeerUpdateListener(peerUpdateCh chan PeerUpdate, lostCh chan []string, peersCh chan []string) {
+func PeerUpdateListener(peerUpdateCh chan PeerUpdate, peersCh chan []string, lostCh chan []string) {
     for {
 		select {
 		case p := <-peerUpdateCh:
