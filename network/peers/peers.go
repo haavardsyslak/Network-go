@@ -85,3 +85,13 @@ func Receiver(port int, peerUpdateCh chan<- PeerUpdate) {
 		}
 	}
 }
+
+func PeerUpdateListener(peerUpdateCh chan PeerUpdate, lostCh chan []string, peersCh chan []string) {
+    for {
+		select {
+		case p := <-peerUpdateCh:
+			peersCh <- p.Peers
+			lostCh <- p.Lost
+		}
+	}
+}
